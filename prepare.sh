@@ -21,6 +21,7 @@ else
   export DISTRO="$RDIR/dependencies/occu/arm-gnueabihf"
   export LD_PATH="$OVERLAY/arm-linux-gnueabihf"
 fi
+mkdir -p $LD_PATH
 
 #clear occu repo bugs
 rm -rf $RDIR/dependencies/occu/HMserver/etc/init.d
@@ -29,8 +30,8 @@ rm -rf $RDIR/dependencies/occu/HMserver/etc/init.d
 echo "building lighttpd"
 cp -l $DISTRO/packages/lighttpd/bin/* $OVERLAY/usr/sbin
 cp -rl $DISTRO/packages/lighttpd/etc/lighttpd $OVERLAY/etc/lighttpd
-cp -rl $DISTRO/packages/lighttpd/lib $LD_PATH
-mv $LD_PATH/lighttpd $OVERLAY/lib || /bin/true
+cp -rl $DISTRO/packages/lighttpd/lib/* $LD_PATH/
+test -d $OVERLAY/lib/lighttpd || mv $LD_PATH/lighttpd $OVERLAY/lib/
 
 # linuxbasis
 echo "building linuxbasis"
