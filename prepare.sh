@@ -70,11 +70,14 @@ cp -rlP $RDIR/dependencies/occu/WebUI/www $OVERLAY/www
 #version info
 export CCU2_VERSION=$(cat OCCU_VERSION)
 mkdir $OVERLAY/boot
-echo $CCU2_VERSION>$OVERLAY/boot/VERSION
+#echo -n "VERSION=$CCU2_VERSION">$OVERLAY/boot/VERSION
+echo -n "VERSION=$CCU2_VERSION">$OVERLAY/VERSION
+
 sed -i 's/WEBUI_VERSION = ".*";/WEBUI_VERSION = "'$CCU2_VERSION'";/' $OVERLAY/www/rega/pages/index.htm
-sed -i 's/product == "HM-CCU2"/product == "HM-dccu2"/' $OVERLAY/www/webui/webui.js
-sed -i 's/"http:\/\/update\.homematic\.com\/firmware\/download?cmd=js_check_version&version="+WEBUI_VERSION+"&product=HM-CCU2&serial=" + serial/"https:\/\/gitcdn.xyz\/repo\/litti\/dccu2\/master\/release\/latest-release.js?cmd=js_check_version\&version="+WEBUI_VERSION+"\&product=HM-dccu2-x86_64\&serial=" + serial/' $OVERLAY/www/webui/webui.js >dada.js
-#echo "homematic.com.setLatestVersion('$CCU2_VERSION', 'HM-dccu2-x86_64');" > $RDIR/release/latest-release.js
+sed -i 's/product == "HM-CCU2"/product == "HM-dccu"/' $OVERLAY/www/webui/webui.js
+
+#sed -i 's/"http:\/\/update\.homematic\.com\/firmware\/download?cmd=js_check_version&version="+WEBUI_VERSION+"&product=HM-CCU&serial=" + serial/"https:\/\/gitcdn.xyz\/repo\/litti\/dccu2\/master\/release\/latest-release.js?cmd=js_check_version\&version="+WEBUI_VERSION+"\&product=HM-dccu\&serial=" + serial/' $OVERLAY/www/webui/webui.js >dada.js
+#echo "homematic.com.setLatestVersion('$CCU2_VERSION', 'HM-dccu');" > $RDIR/release/latest-release.js
 
 #fix devconfig
 #sed -i 's/<div class=\\\"StdTableBtn CLASS21701\\\" onclick=\\\"window\.open('\''\/tools\/devconfig\.cgi?sid=\$sid'\'');\\\">devconfig<\/div>/<div class=\\\"cpButton\\\"><div class=\\\"StdTableBtn CLASS21701\\\" onclick=\\\"window\.open\('\''\/tools\/devconfig\.cgi\?sid=\$sid'\''\);\\\">devconfig<\/div><div class=\\\"StdTableBtnHelp\\\"><\/div><\/div>/' $OVERLAY/www/config/control_panel.cgi

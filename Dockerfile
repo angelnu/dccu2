@@ -9,8 +9,9 @@ RUN apt update && \
     apt -y install curl
 
 RUN curl -s https://api.github.com/repos/eq-3/occu/releases/latest| grep '"tag_name":'|sed -E 's/.*"([^"]+)".*/\1/'>OCCU_VERSION && \
+    #echo -n "2.35.16">OCCU_VERSION && \
     export OCCU_VERSION=$(cat OCCU_VERSION) && \
-    echo "Downloading OCCU version: $OCCU_VERSION" && \
+    echo "Downloading OCCU version: $OCCU_VERSION." && \
     mkdir -p /dependencies && \
     cd /dependencies && \
     curl -L https://github.com/eq-3/occu/archive/${OCCU_VERSION}.tar.gz | tar xvz && \
@@ -41,7 +42,7 @@ COPY --from=builder /overlay /
 #RUN update-usbids
 RUN apt update && \
     mkdir -p /usr/share/man/man1 && \
-    apt install -y busybox-syslogd libssl1.0.2 usbutils default-jre-headless && \
+    apt install -y busybox-syslogd libssl1.0.2 usbutils default-jre-headless iproute2 && \
     rm /etc/rc*/S01busybox* && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
