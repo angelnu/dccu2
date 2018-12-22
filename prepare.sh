@@ -70,7 +70,7 @@ cp -rlP $RDIR/dependencies/occu/WebUI/www $OVERLAY/www
 #version info
 export CCU2_VERSION=$(cat OCCU_VERSION)
 mkdir $OVERLAY/boot
-#echo -n "VERSION=$CCU2_VERSION">$OVERLAY/boot/VERSION
+echo -n "VERSION=$CCU2_VERSION">$OVERLAY/boot/VERSION
 echo -n "VERSION=$CCU2_VERSION">$OVERLAY/VERSION
 
 sed -i 's/WEBUI_VERSION = ".*";/WEBUI_VERSION = "'$CCU2_VERSION'";/' $OVERLAY/www/rega/pages/index.htm
