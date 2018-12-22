@@ -1,5 +1,5 @@
 ARG arch=i386
-ARG BASE=$arch/openjdk:slim
+ARG BASE=$arch/debian:stable-slim
 
 FROM ubuntu as builder
 ARG arch=i386
@@ -41,7 +41,8 @@ COPY --from=builder /overlay /
 #RUN update-usbids
 RUN apt update && \
     mkdir -p /usr/share/man/man1 && \
-    apt install -y busybox-syslogd libssl1.0.2 usbutils && \
+    apt install -y busybox-syslogd libssl1.0.2 usbutils default-jre-headless && \
+    rm /etc/rc*/S01busybox* && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN rm -rf /usr/local/* && \

@@ -30,6 +30,7 @@ echo "building lighttpd"
 cp -l $DISTRO/packages/lighttpd/bin/* $OVERLAY/usr/sbin
 cp -rl $DISTRO/packages/lighttpd/etc/lighttpd $OVERLAY/etc/lighttpd
 cp -rl $DISTRO/packages/lighttpd/lib $LD_PATH
+mv $LD_PATH/lighttpd $OVERLAY/lib || /bin/true
 
 # linuxbasis
 echo "building linuxbasis"
