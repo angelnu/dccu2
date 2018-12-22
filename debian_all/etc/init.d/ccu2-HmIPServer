@@ -41,7 +41,7 @@ start() {
 	init
 	start-stop-daemon -S -q -m -p $PIDFILE --exec /usr/bin/java -- -Xmx64m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMIPServer.jar /etc/crRFD.conf &
 	log_progress_msg "Waiting for HMServer to get ready"
-	eq3configcmd wait-for-file -f $STARTWAITFILE -p 5 -t 300
+	#eq3configcmd wait-for-file -f $STARTWAITFILE -p 5 -t 300
 	log_end_msg 0
 }
 stop() {
@@ -72,4 +72,3 @@ case "$1" in
 esac
 
 exit $?
-
