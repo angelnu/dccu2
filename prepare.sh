@@ -64,6 +64,7 @@ cp -rl $DISTRO/packages-eQ-3/WebUI/bin/* $OVERLAY/bin/
 cp -rl $RDIR/dependencies/occu/WebUI/bin/* $OVERLAY/bin/
 cp -rl $DISTRO/packages-eQ-3/WebUI/etc/rega.conf $OVERLAY/etc/
 cp -rlf $DISTRO/packages-eQ-3/WebUI/lib/* $LD_PATH/
+test -d $OVERLAY/lib/tcl8.2 || mv $LD_PATH/tcl8.2 $OVERLAY/lib/
 cp -rlP $RDIR/dependencies/occu/WebUI/www $OVERLAY/www
 
 #version info
