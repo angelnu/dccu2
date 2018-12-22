@@ -18,7 +18,7 @@ if [ "$ARCH" = "i386" ]; then
   export LD_PATH="$OVERLAY/lib"
 else
   echo "Arch is $ARCH -> use arm-gnueabihf"
-  export $DISTRO="$RDIR/dependencies/occu/arm-gnueabihf"
+  export DISTRO="$RDIR/dependencies/occu/arm-gnueabihf"
   export LD_PATH="$OVERLAY/arm-linux-gnueabihf"
 fi
 
