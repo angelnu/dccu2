@@ -53,8 +53,8 @@ RUN rm -rf /usr/local/* && \
       mkdir -p /usr/local/etc/config/addons/www && \
       mkdir -p /var/status && \
       ln -s ../usr/local/etc/config /etc/config && \
-      ln -s /usr/lib/*-linux-gnu/libssl.so.1.0* /usr/lib/libssl.so.1.0.0 && \
-      ln -s /usr/lib/*-linux-gnu/libcrypto.so.1.0* /usr/lib/libcrypto.so.1.0.0 && \
+      ln -s /usr/lib/*-linux-gnu*/libssl.so.1.0* /usr/lib/libssl.so.1.0.0 && \
+      ln -s /usr/lib/*-linux-gnu*/libcrypto.so.1.0* /usr/lib/libcrypto.so.1.0.0 && \
       mkdir /opt/hm && \
       touch /var/rf_address && \
       ln -s /bin /opt/hm/bin && \
