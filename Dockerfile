@@ -1,5 +1,5 @@
 ARG arch=i386
-ARG BASE=$arch/openjdk:8-slim
+ARG BASE=$arch/openjdk:slim
 
 FROM ubuntu as builder
 ARG arch=i386

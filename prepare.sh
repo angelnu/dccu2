@@ -14,10 +14,12 @@ mkdir -p $OVERLAY/usr/sbin
 # Set distro
 if [ "$ARCH" = "i386" ]; then
   echo "Arch is $ARCH -> use X86_32_Debian_Wheezy"
-  ln -s $RDIR/dependencies/occu/X86_32_Debian_Wheezy $RDIR/dependencies/occu/distro
+  export DISTRO="$RDIR/dependencies/occu/X86_32_Debian_Wheezy"
+  export LD_PATH="$OVERLAY/lib"
 else
   echo "Arch is $ARCH -> use arm-gnueabihf"
-  ln -s $RDIR/dependencies/occu/arm-gnueabihf $RDIR/dependencies/occu/distro
+  export $DISTRO="$RDIR/dependencies/occu/arm-gnueabihf"
+  export LD_PATH="$OVERLAY/arm-linux-gnueabihf"
 fi
 
 #clear occu repo bugs
@@ -25,29 +27,29 @@ rm -rf $RDIR/dependencies/occu/HMserver/etc/init.d
 
 # lighttpd
 echo "building lighttpd"
-cp -l $RDIR/dependencies/occu/distro/packages/lighttpd/bin/* $OVERLAY/usr/sbin
-cp -rl $RDIR/dependencies/occu/distro/packages/lighttpd/etc/lighttpd $OVERLAY/etc/lighttpd
-cp -rl $RDIR/dependencies/occu/distro/packages/lighttpd/lib $OVERLAY/lib
+cp -l $DISTRO/packages/lighttpd/bin/* $OVERLAY/usr/sbin
+cp -rl $DISTRO/packages/lighttpd/etc/lighttpd $OVERLAY/etc/lighttpd
+cp -rl $DISTRO/packages/lighttpd/lib $LD_PATH
 
 # linuxbasis
 echo "building linuxbasis"
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/LinuxBasis/bin $OVERLAY/bin
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/LinuxBasis/lib/* $OVERLAY/lib/
+cp -rl $DISTRO/packages-eQ-3/LinuxBasis/bin $OVERLAY/bin
+cp -rl $DISTRO/packages-eQ-3/LinuxBasis/lib/* $LD_PATH/
 
 # hs485d - we love wired :-)
 echo "building hs485d - we love wired :-)"
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/HS485D/bin/* $OVERLAY/bin/
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/HS485D/lib/* $OVERLAY/lib/
+cp -rl $DISTRO/packages-eQ-3/HS485D/bin/* $OVERLAY/bin/
+cp -rl $DISTRO/packages-eQ-3/HS485D/lib/* $LD_PATH/
 
 # rfd
 echo "building rfd"
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/RFD/bin/SetInterfaceClock $OVERLAY/bin/
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/RFD/bin/avrprog $OVERLAY/bin/
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/RFD/bin/crypttool $OVERLAY/bin/
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/RFD/bin/rfd $OVERLAY/bin/
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/RFD/etc/config_templates/* $OVERLAY/etc/config_templates/
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/RFD/etc/crRFD.conf $OVERLAY/etc/
-cp -rlf $RDIR/dependencies/occu/distro/packages-eQ-3/RFD/lib/* $OVERLAY/lib/
+cp -rl $DISTRO/packages-eQ-3/RFD/bin/SetInterfaceClock $OVERLAY/bin/
+cp -rl $DISTRO/packages-eQ-3/RFD/bin/avrprog $OVERLAY/bin/
+cp -rl $DISTRO/packages-eQ-3/RFD/bin/crypttool $OVERLAY/bin/
+cp -rl $DISTRO/packages-eQ-3/RFD/bin/rfd $OVERLAY/bin/
+cp -rl $DISTRO/packages-eQ-3/RFD/etc/config_templates/* $OVERLAY/etc/config_templates/
+cp -rl $DISTRO/packages-eQ-3/RFD/etc/crRFD.conf $OVERLAY/etc/
+cp -rlf $DISTRO/packages-eQ-3/RFD/lib/* $LD_PATH/
 
 # HMIPServer
 echo "building HMIPServer"
@@ -56,10 +58,10 @@ cp -rl $RDIR/dependencies/occu/HMserver/* $OVERLAY/
 
 # Tante rega ;-)
 echo "building ReGaHss ;-)"
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/WebUI/bin/* $OVERLAY/bin/
+cp -rl $DISTRO/packages-eQ-3/WebUI/bin/* $OVERLAY/bin/
 cp -rl $RDIR/dependencies/occu/WebUI/bin/* $OVERLAY/bin/
-cp -rl $RDIR/dependencies/occu/distro/packages-eQ-3/WebUI/etc/rega.conf $OVERLAY/etc/
-cp -rlf $RDIR/dependencies/occu/distro/packages-eQ-3/WebUI/lib/* $OVERLAY/lib/
+cp -rl $DISTRO/packages-eQ-3/WebUI/etc/rega.conf $OVERLAY/etc/
+cp -rlf $DISTRO/packages-eQ-3/WebUI/lib/* $LD_PATH/
 cp -rlP $RDIR/dependencies/occu/WebUI/www $OVERLAY/www
 
 #version info
@@ -84,8 +86,8 @@ cp -rl $RDIR/dependencies/occu/firmware $OVERLAY/firmware/
 #cp -rlf $RDIR/debian_all/patches/WebUI/www/config/* $OVERLAY/www/config/
 
 #hack for glitch in repo
-#echo "hack for glitch in repo"
-#mv $OVERLAY/firmware/HmIP-RFUSB/hmip_coprocessor_update.eq3 $OVERLAY/firmware/HmIP-RFUSB/hmip_coprocessor_update-2.8.6.eq3
+echo "hack for glitch in repo"
+mv $OVERLAY/firmware/HmIP-RFUSB/hmip_coprocessor_update.eq3 $OVERLAY/firmware/HmIP-RFUSB/hmip_coprocessor_update-2.8.6.eq3
 
 # other data
 echo "building other data"
